@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h2 {
+        font-size: 70px;
+    }
+
+    .img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid;
+        border-radius: 15px;
+    }
+
+    .div1 {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #input1 {
+        width: 900px;
+        height: 30px;
+        margin-top: 30px;
+        border-radius: 10px;
+        border: solid rgb(109, 109, 230);
+    }
+
+    .heatcard {
+        font-size: 30px;
+    }
+
+    .card2 {
+        margin-top: 40px;
+    }
+
+    .cvcvcard {
+        margin-left: 390px;
+        font-size: 20px;
+    }
+
+    .detetcard {
+        font-size: 20px;
+    }
+
+    #datets {
+        width: 450px;
+        margin-top: 20px;
+        border-radius: 10px;
+        height: 30px;
+        border: solid rgb(109, 109, 230);
+    }
+
+    #cvc {
+        margin-left: 30px;
+        border-radius: 10px;
+        height: 30px;
+        width: 410px;
+        border: solid rgb(109, 109, 230);
+    }
+
+    .buttomcard {
+        margin-top: 60px;
+        block-size: 40px;
+        inline-size: 200px;
+        border-radius: 50px;
+        background-color: rgb(56, 153, 198);
+        color: white;
+        border: solid rgb(118, 251, 240);
+    }
+
+    .cardtable {
+        margin-top: 100px;
+    }
+</style>
+
+<body>
+    <section>
+        <h2>Select Card</h2>
+        <div class="div1">
+            <img src="./anh/z4686191427089_6bfc4335bcd1f0e86739f8b90c469db4.jpg" alt="anh" class="img"
+                onclick="click()" />
+            <img src="./anh/z4686189914123_a7af7613828c372cb7f55602accb33c7.jpg" alt="anh " class="img"
+                onclick="click()" />
+            <img src="./anh/z4686188625643_9346ad1f69ea967deb1590bc86544b23.jpg" alt="anh" class="img"
+                onclick="click()" />
+            <img src="./anh/z4686192886014_a7e0a6064ee07c4920431a5463a5a976.jpg" alt="anh" class="img"
+                onclick="click()" />
+            <img src="./anh/z4686196688103_27cb41c85fdf411deaa3072deaf5f911.jpg" alt="anh" class="img"
+                onclick="click()">
+        </div>
+        <hr />
+        <div class="card1">
+            <label class="heatcard">Card Number</label><br />
+            <input type="number" id="input1" />
+        </div>
+        <div class="card2">
+            <span class="detetcard">Expiry Date</span>
+            <span class="cvcvcard">CVC/CVV</span>
+            <div>
+                <input type="date" id="datets" />
+                <input type="password" id="cvc" />
+            </div>
+
+        </div>
+        <button class="buttomcard" onclick="addCard()">Save</button>
+    </section>
+    <table border="1px" cellpadding="15px" cellspacing="5px" class="cardtable">
+        <thead>
+            <tr>
+                <th>Card Img</th>
+                <th>Card Number </th>
+                <th>Expiry Date</th>
+                <th>CVV</th>
+                <th colspan="3">Action</th>
+            </tr>
+        </thead>
+        <tbody class="cardbody">
+        </tbody>
+    </table>
+    <script>
+        let arr = []
+        let a = document.getElementsByClassName("img")
+        for (let i = 0; i < 5; i++) {
+            a[i].onclick = function () {
+                for (let j = 0; j < 5; j++) {
+                    if (j != i) {
+                        a[j].style.border = " solid"
+                        a[i].style.border = " 2px solid blue"
+                    }
+                }
+            }
+        }
+        function addCard() {
+
+            
+            let cardInfor = {
+                cardnumber:document.getElementById("input1").value,
+                ccv:document.getElementById("cvc").value,
+                dates: document.getElementById("datets").value,
+            }
+            arr.push(cardInfor);
+            renderJobs(arr);
+            reset()
+        }
+        function renderJobs() {
+            let text = ""
+            for (let k = 0; k < arr.length; k++) {
+                text += `
+            <tr>
+                <td><img src="./anh/z4686191427089_6bfc4335bcd1f0e86739f8b90c469db4.jpg" alt="" style="width: 80px; height: 70px;"></td>
+                <td>${arr[k].cardnumber}</td>
+                <td>${arr[k].dates}</td>
+                <td>${arr[k].ccv}</td>
+                <td>
+                <button>view</button>
+                <button onclick="upDateStudent(${k})">edit</button>
+                <button onclick="deleteStudent(${k})" >delete</button>
+                </td>
+            </tr>
+            `
+            }
+            document.getElementsByClassName("cardbody")[0].innerHTML = text
+        }
+        function reset() {
+            cards.value = ""
+            cardccv.value = "";
+        }
+        function deleteStudent(id) {
+            for (let i = 0; i < arr.length; i++) {
+                if (i == id) {
+                    arr.splice(i, 1);
+                }
+                renderJobs();
+            }
+        }
+        function upDateStudent(index) {
+            arr.forEach((item, index1) => {
+                if (index = index1) {
+                    cards.value = item.cardnumber
+                    cardccv.value = item.ccv
+                }
+
+            });
+
+        }
+    </script>
+</body>
+
+</html>
